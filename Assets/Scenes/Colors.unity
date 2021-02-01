@@ -1248,6 +1248,7 @@ GameObject:
   - component: {fileID: 1714207188}
   - component: {fileID: 1714207187}
   - component: {fileID: 1714207190}
+  - component: {fileID: 1714207191}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1332,8 +1333,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a9b08608e4caba4d8188799f495b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  figsPrefab: {fileID: 2481566354751331680, guid: 088a5559fd97643489cdebee493bbe7b,
-    type: 3}
+  figsPrefabs:
+  - {fileID: 3997632943691682952, guid: 088a5559fd97643489cdebee493bbe7b, type: 3}
+  - {fileID: 6093598656021395396, guid: 944c875a88e4bdf43946ea073493bc37, type: 3}
+  - {fileID: 7418704321719082584, guid: 5e498668fd7c4c348baf3380ed99f1a7, type: 3}
+  - {fileID: 4783265692573484373, guid: f5e02aeb541e76943ac043c039501c5c, type: 3}
+  - {fileID: 8249953310093004735, guid: 33ecc699c287611428921b5c337a8191, type: 3}
+  cameraOffset: {x: 0, y: 0, z: 0}
+  guiOffset: 3
+  figures: []
+--- !u!114 &1714207191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1714207186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e5f27dfa0b6ad541a1578c0aa999aec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mistakesCount: 0
+  generator: {fileID: 1714207190}
 --- !u!1 &1734097247
 GameObject:
   m_ObjectHideFlags: 0

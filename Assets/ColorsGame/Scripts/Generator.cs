@@ -15,21 +15,16 @@ namespace ChooseColor.Game.Scripts
 
         [SerializeField] private Transform[] figsPrefabs;
         [SerializeField] private Vector3 cameraOffset;
-        [SerializeField][Range(0.0f, 255.0f)] private float guiOffset = 3.0f;
-        [SerializeField] private List<Figure> figures = new List<Figure>();
+        [SerializeField] [Range(0.0f, 255.0f)] private float guiOffset = 3.0f;
+        [SerializeField] internal List<Figure> figures = new List<Figure>();
 
-        private void Start()
+        internal void GenerateLevel()
         {
             figsMatrix = new int[ROWS, COLS];
             cameraOffset = new Vector3(Camera.main.ViewportToWorldPoint(new Vector3(0, 0)).x + guiOffset, Camera.main.ViewportToWorldPoint(new Vector3(0, 0)).y + guiOffset);
 
             FillMatrixMap();
             InstantiateFigures();
-        }
-
-        private void Update()
-        {
-
         }
 
         private void FillMatrixMap()
@@ -43,7 +38,7 @@ namespace ChooseColor.Game.Scripts
             }
         }
 
-        void InstantiateFigures()
+        private void InstantiateFigures()
         {
             int index = 0;
             for (int i = 0; i < ROWS; i++)
@@ -68,7 +63,7 @@ namespace ChooseColor.Game.Scripts
 
         private void AddToList(Transform instance)
         {
-            var randomColorIndex = Random.Range(0,Enum.GetNames(typeof(Figure.Colors)).Length);
+            var randomColorIndex = Random.Range(0, Enum.GetNames(typeof(Figure.Colors)).Length);
             var figure = new Figure();
             figure.figure = instance;
             figure.figureColor = (Figure.Colors)randomColorIndex;
@@ -92,6 +87,9 @@ namespace ChooseColor.Game.Scripts
 
             return tmpArray;
         }
-    }
+        private void ClearLevel()
+        {
 
+        }
+    }
 }

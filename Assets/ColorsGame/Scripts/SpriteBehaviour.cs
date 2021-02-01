@@ -2,20 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpriteBehaviour : MonoBehaviour
+namespace ChooseColor.Game.Scripts
 {
-    [SerializeField] SpriteRenderer[] renderers;
-
-    private void Awake()
+    public class SpriteBehaviour : MonoBehaviour
     {
-        renderers = GetComponents<SpriteRenderer>();
-    }
+        [SerializeField] SpriteRenderer[] renderers;
 
-    internal void SetColor(Color color)
-    {
-        foreach (var item in renderers)
+        private void Awake()
         {
-            item.color = color;
+            renderers = GetComponents<SpriteRenderer>();
+        }
+
+        internal void SetColor(Color color)
+        {
+            foreach (var item in renderers)
+            {
+                item.color = color;
+            }
         }
     }
 }

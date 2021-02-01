@@ -6,7 +6,7 @@ public class SpriteBehaviour : MonoBehaviour
 {
     [SerializeField] SpriteRenderer[] renderers;
 
-    private void Start()
+    private void Awake()
     {
         renderers = GetComponents<SpriteRenderer>();
     }

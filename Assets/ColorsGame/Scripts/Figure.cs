@@ -21,7 +21,6 @@ namespace ChooseColor.Game.Scripts
 
         internal void ColorizeFigure(Color color)
         {
-            Debug.Log($"ColorizeFigure: {figure}");
             figure.GetComponent<SpriteBehaviour>().SetColor(color);
         }
 

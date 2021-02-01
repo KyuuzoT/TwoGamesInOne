@@ -52,14 +52,13 @@ namespace ChooseColor.Game.Scripts
                     if (figsMatrix[i, j] > 0)
                     {
                         var instance = Instantiate(figsPrefabs[index]);
-                        Debug.Log($"Instance #{i},{j} - {instance}");
                         AddToList(instance);
 
                         Vector3 randomOffset = new Vector3(Random.Range(0.0f, 0.25f), Random.Range(0.0f, 0.25f));
                         instance.transform.position = new Vector3(CELL_SIZE * j, CELL_SIZE * i) + randomOffset;
                         instance.transform.position += cameraOffset;
 
-                        SwapThisAndLastInArray(index);
+                        figsPrefabs = SwapThisAndLastInArray(index, figsPrefabs);
                     }
                 }
             }
@@ -67,10 +66,10 @@ namespace ChooseColor.Game.Scripts
 
         private void AddToList(Transform instance)
         {
-            Debug.Log($"Current instance: {instance}");
+            var randomColorIndex = Random.Range(0,4);
             var figure = new Figure();
             figure.figure = instance;
-            figure.figureColor = (Figure.Colors)Random.Range(0, 5);
+            figure.figureColor = (Figure.Colors)randomColorIndex;
             figure.ColorizeFigure();
             figures.Add(figure);
         }
@@ -80,6 +79,16 @@ namespace ChooseColor.Game.Scripts
             Transform tmpFigure = figsPrefabs[figsPrefabs.Length - 1];
             figsPrefabs[figsPrefabs.Length - 1] = figsPrefabs[index];
             figsPrefabs[index] = tmpFigure;
+        }
+
+        private T[] SwapThisAndLastInArray<T>(int index, T[] array)
+        {
+            T[] tmpArray = array;
+            T tmpElement = tmpArray[tmpArray.Length - 1];
+            tmpArray[tmpArray.Length - 1] = tmpArray[index];
+            tmpArray[index] = tmpElement;
+
+            return tmpArray;
         }
     }
 

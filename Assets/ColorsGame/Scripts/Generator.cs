@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace ChooseColor.Game.Scripts
 {
@@ -66,7 +68,7 @@ namespace ChooseColor.Game.Scripts
 
         private void AddToList(Transform instance)
         {
-            var randomColorIndex = Random.Range(0,4);
+            var randomColorIndex = Random.Range(0,Enum.GetNames(typeof(Figure.Colors)).Length);
             var figure = new Figure();
             figure.figure = instance;
             figure.figureColor = (Figure.Colors)randomColorIndex;

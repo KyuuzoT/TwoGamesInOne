@@ -1,24 +1,59 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Figure : MonoBehaviour
+namespace ChooseColor.Game.Scripts
 {
-    [SerializeField] SpriteRenderer[] renderers;
-    // Start is called before the first frame update
-    void Start()
+    [Serializable]
+    public class Figure
     {
-        
-    }
+        internal enum Colors
+        {
+            red = 0,
+            green = 1,
+            blue = 2,
+            violet = 3
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+        [SerializeField] internal Colors figureColor { get; set; }
+        [SerializeField] internal Transform figure;
 
-    public void SetColor(Color color)
-    {
+        internal void ColorizeFigure(Color color)
+        {
+            Debug.Log($"ColorizeFigure: {figure}");
+            figure.GetComponent<SpriteBehaviour>().SetColor(color);
+        }
 
+        internal void ColorizeFigure()
+        {
+            Color color = RelateToUnityColor();
+            ColorizeFigure(color);
+        }
+
+        private Color RelateToUnityColor()
+        {
+            Color color;
+            switch (figureColor)
+            {
+                case Colors.red:
+                    color = Color.red;
+                    break;
+                case Colors.green:
+                    color = Color.green;
+                    break;
+                case Colors.blue:
+                    color = Color.blue;
+                    break;
+                case Colors.violet:
+                    color = Color.magenta;
+                    break;
+                default:
+                    color = Color.white;
+                    break;
+            }
+
+            return color;
+        }
     }
 }

@@ -36,7 +36,6 @@ namespace AngryBirds.Game.Scripts.Actor
         {
             yield return new WaitForSeconds(releaseTime);
             GetComponent<SpringJoint2D>().enabled = false;
-            isInAir = true;
         }
     }
 }

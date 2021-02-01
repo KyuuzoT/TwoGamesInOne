@@ -27,6 +27,15 @@ public class Generator : MonoBehaviour
 
     void InstantiateFigures()
     {
-
+        for (int i = 0; i < ROWS; i++)
+        {
+            for (int j = 0; j < COLS; j++)
+            {
+                if(figsMatrix[i, j] == 1)
+                {
+                    Instantiate(figsPrefab);
+                }
+            }
+        }
     }
 }

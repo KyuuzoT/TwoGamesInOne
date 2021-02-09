@@ -1359,6 +1359,7 @@ MonoBehaviour:
   generator: {fileID: 1714207190}
   buttons: []
   layout: {fileID: 972940417}
+  mistakesCounterText: {fileID: 1767470535}
 --- !u!1 &1734097247
 GameObject:
   m_ObjectHideFlags: 0

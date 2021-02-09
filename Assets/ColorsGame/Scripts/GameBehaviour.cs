@@ -1,7 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace ChooseColor.Game.Scripts
 {
@@ -9,30 +12,105 @@ namespace ChooseColor.Game.Scripts
     {
         [SerializeField] private int mistakesCount;
         [SerializeField] private Generator generator;
-        private Figure.Colors mostCommonColor;
+        [SerializeField] private List<Button> buttons;
+        [SerializeField] private Transform layout;
 
-        private int mostCommonColorCount;
+        private int maxColorCount;
 
-        // Start is called before the first frame update
         void Start()
         {
             generator.GenerateLevel();
         }
 
-        // Update is called once per frame
         void Update()
+        {
+            if (Input.GetKeyUp(KeyCode.R))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
+
+            //SetButtonsBehaviour(GetButtons(layout));
+        }
+
+        private List<Button> GetButtons(Transform layoutTransform)
+        {
+            List<Button> btns = new List<Button>();
+            btns.AddRange(layoutTransform.GetComponentsInChildren<Button>());
+            return btns;
+        }
+
+        private void SetButtonsBehaviour(List<Button> buttonsList)
+        {
+            foreach (var btn in buttonsList)
+            {
+                btn.onClick.RemoveAllListeners();
+                btn.onClick
+                    .AddListener(
+                                    delegate 
+                                    { 
+                                        ButtonClicked(btn.name); 
+                                    });
+            }
+        }
+
+        private void ButtonClicked(string name)
+        {
+            Figure.Colors choosenColor;
+            switch (name)
+            {
+                case "Red":
+                    choosenColor = Figure.Colors.red;
+                    break;
+                case "Green":
+                    choosenColor = Figure.Colors.green;
+                    break;
+                case "Blue":
+                    choosenColor = Figure.Colors.blue;
+                    break;
+                case "Violet":
+                    choosenColor = Figure.Colors.violet;
+                    break;
+                default:
+                    choosenColor = default;
+                    break;
+            }
+
+            CheckAnswer(choosenColor);
+        }
+
+        private void CheckAnswer(Figure.Colors choosenColor)
+        {
+            foreach (var item in SortFiguresByColor<KeyCount>())
+            {
+                if(item.Key.Equals(choosenColor))
+                {
+                    if(item.colorCount <= maxColorCount)
+                    {
+
+                    }
+                }
+            }
+            throw new NotImplementedException();
+        }
+
+        internal IEnumerable<T> SortFiguresByColor<T>()
         {
             if (generator.figures.Count > 0)
             {
-                var tmp = generator.figures.GroupBy(x => x.figureColor).Select(y => new { y.Key, mostCommonColorCount = y.Count() });
+                var list = generator.figures.GroupBy(x => x.figureColor).Select(y => new { y.Key, colorCount = y.Count() });
+                list = list.OrderByDescending(x => x.colorCount).ToList();
+                maxColorCount = list.First().colorCount;
 
-                //Debug.Log($"tmp = {tmp} count: {mostCommonColorCount}");
-                //Debug.Log($"Most common: {tmp.Where(x=>)");
-                foreach (var item in tmp)
-                {
-                    Debug.Log($"tmp = {item}");
-                }
+                return (IEnumerable<T>)list;
             }
+
+            return new List<T>();
+        }
+
+        struct KeyCount
+        {
+            internal Figure.Colors Key;
+            internal int colorCount;
         }
     }
 }

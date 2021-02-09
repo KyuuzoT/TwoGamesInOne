@@ -18,6 +18,8 @@ namespace ChooseColor.Game.Scripts
         [SerializeField] [Range(0.0f, 255.0f)] private float guiOffset = 3.0f;
         [SerializeField] internal List<Figure> figures = new List<Figure>();
 
+        private int prevColorIndex = 0;
+
         internal void GenerateLevel()
         {
             figsMatrix = new int[ROWS, COLS];
@@ -64,18 +66,13 @@ namespace ChooseColor.Game.Scripts
         private void AddToList(Transform instance)
         {
             var randomColorIndex = Random.Range(0, Enum.GetNames(typeof(Figure.Colors)).Length);
+
             var figure = new Figure();
             figure.figure = instance;
             figure.figureColor = (Figure.Colors)randomColorIndex;
             figure.ColorizeFigure();
             figures.Add(figure);
-        }
-
-        private void SwapThisAndLastInArray(int index)
-        {
-            Transform tmpFigure = figsPrefabs[figsPrefabs.Length - 1];
-            figsPrefabs[figsPrefabs.Length - 1] = figsPrefabs[index];
-            figsPrefabs[index] = tmpFigure;
+            prevColorIndex = randomColorIndex;
         }
 
         private T[] SwapThisAndLastInArray<T>(int index, T[] array)
@@ -91,5 +88,7 @@ namespace ChooseColor.Game.Scripts
         {
 
         }
+
+
     }
 }

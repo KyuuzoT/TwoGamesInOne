@@ -8,13 +8,22 @@ namespace AngryBirds.Game.Scripts.Actor
     {
         private bool isDragging = false;
         [SerializeField] private Rigidbody2D rBody;
+        [SerializeField] private Rigidbody2D rBodyHook;
         [SerializeField] private float secondsToRelease = 0.15f;
+        [SerializeField] private float maxDragDistance = 2.0f;
 
         private void Update()
         {
-            if(isDragging)
+            if (isDragging)
             {
-                rBody.position = Camera.main.ScreenToWorldPoint(Input.mousePosition); 
+                Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition)
+
+                if (Vector3.Distance(mousePosition, rBodyHook.position) > maxDragDistance)
+                {
+                    rBody.position = rBodyHook.position + (rBodyHook.position - mousePosition).normalized * maxDragDistance;
+                }
+
+                rBody.position = mousePosition;
             }
         }
 
@@ -36,6 +45,7 @@ namespace AngryBirds.Game.Scripts.Actor
         {
             yield return new WaitForSeconds(secondsToRelease);
             GetComponent<SpringJoint2D>().enabled = false;
+            this.enabled = false;
         }
     }
 }

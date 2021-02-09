@@ -56,6 +56,7 @@ namespace ChooseColor.Game.Scripts
                         Vector3 randomOffset = new Vector3(Random.Range(0.0f, 0.25f), Random.Range(0.0f, 0.25f));
                         instance.transform.position = new Vector3(CELL_SIZE * j, CELL_SIZE * i) + randomOffset;
                         instance.transform.position += cameraOffset;
+                        instance.parent = GameObject.FindGameObjectWithTag("Container").transform;
 
                         figsPrefabs = SwapThisAndLastInArray(index, figsPrefabs);
                     }

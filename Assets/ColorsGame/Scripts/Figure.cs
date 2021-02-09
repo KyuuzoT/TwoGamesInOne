@@ -54,5 +54,30 @@ namespace ChooseColor.Game.Scripts
 
             return color;
         }
+
+        internal static Color RelateToUnityColor(Colors colorEnum)
+        {
+            Color color;
+            switch (colorEnum)
+            {
+                case Colors.red:
+                    color = Color.red;
+                    break;
+                case Colors.green:
+                    color = Color.green;
+                    break;
+                case Colors.blue:
+                    color = Color.blue;
+                    break;
+                case Colors.violet:
+                    color = Color.magenta;
+                    break;
+                default:
+                    color = Color.white;
+                    break;
+            }
+
+            return color;
+        }
     }
 }

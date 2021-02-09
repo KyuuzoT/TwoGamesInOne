@@ -16,11 +16,11 @@ namespace AngryBirds.Game.Scripts.Actor
         {
             if (isDragging)
             {
-                Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition)
+                Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
                 if (Vector3.Distance(mousePosition, rBodyHook.position) > maxDragDistance)
                 {
-                    rBody.position = rBodyHook.position + (rBodyHook.position - mousePosition).normalized * maxDragDistance;
+                    rBody.position = rBodyHook.position + (mousePosition - rBodyHook.position).normalized * maxDragDistance;
                 }
 
                 rBody.position = mousePosition;

@@ -800,7 +800,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rBody: {fileID: 904401425}
+  rBodyHook: {fileID: 0}
   secondsToRelease: 0.15
+  maxDragDistance: 2
 --- !u!1 &1012000797
 GameObject:
   m_ObjectHideFlags: 0
@@ -1334,7 +1336,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rBody: {fileID: 0}
+  rBodyHook: {fileID: 0}
   secondsToRelease: 0.15
+  maxDragDistance: 2
 --- !u!1 &1542276582
 GameObject:
   m_ObjectHideFlags: 0

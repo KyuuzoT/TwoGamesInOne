@@ -6,6 +6,8 @@ using UnityEngine;
 public class EnemyBehaviour : MonoBehaviour
 {
     [SerializeField] private float health = 4.0f;
+    [SerializeField] private Transform deathEffect;
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.relativeVelocity.magnitude > health)
@@ -17,6 +19,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void Die()
     {
-        Destroy(gameObject);
+        Instantiate(deathEffect);
+        Destroy(gameObject,0.5f);
     }
 }

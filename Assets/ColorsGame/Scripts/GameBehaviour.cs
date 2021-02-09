@@ -14,18 +14,22 @@ namespace ChooseColor.Game.Scripts
         [SerializeField] private Generator generator;
         [SerializeField] private List<Button> buttons;
         [SerializeField] private Transform layout;
+        [SerializeField] private Text mistakesCounterText;
 
-        private SpriteRenderer[] figs;
+        private List<SpriteRenderer> figs;
 
-        private int maxColorCount;
+        private int maxColorCount { get; set; }
         private Transform container;
         private int buttonsClicked = 0;
+
+        Dictionary<Figure.Colors, int> dictColors;
 
         void Start()
         {
             generator.GenerateLevel();
             container = GameObject.FindGameObjectWithTag("Container").transform;
-            figs = container.gameObject.GetComponentsInChildren<SpriteRenderer>();
+            figs = container.gameObject.GetComponentsInChildren<SpriteRenderer>().ToList();
+            dictColors = SortFiguresByColor();
         }
 
         void Update()
@@ -36,11 +40,22 @@ namespace ChooseColor.Game.Scripts
             }
 
             SetButtonsBehaviour(GetButtons(layout));
-
-            if(buttonsClicked >= Enum.GetValues(typeof(Figure.Colors)).Length-1)
+            mistakesCounterText.text = mistakesCount.ToString();
+            if (buttonsClicked >= Enum.GetValues(typeof(Figure.Colors)).Length - 1)
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                foreach (var item in GetButtons(layout))
+                {
+                    item.enabled = false;
+                }
+                mistakesCount = 0;
+                StartCoroutine(YieldLoadScene());
             }
+        }
+
+        private IEnumerator YieldLoadScene()
+        {
+            yield return new WaitForSeconds(2.0f);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
         private List<Button> GetButtons(Transform layoutTransform)
@@ -57,15 +72,16 @@ namespace ChooseColor.Game.Scripts
                 btn.onClick.RemoveAllListeners();
                 btn.onClick
                     .AddListener(
-                                    delegate 
-                                    { 
-                                        ButtonClicked(btn.name); 
+                                    delegate
+                                    {
+                                        ButtonClicked(btn.name);
                                     });
             }
         }
 
         private void ButtonClicked(string name)
         {
+            Debug.Log($"Button: {name}");
             Figure.Colors choosenColor;
             switch (name)
             {
@@ -89,23 +105,30 @@ namespace ChooseColor.Game.Scripts
             CheckAnswer(choosenColor);
         }
 
+        int i = 1;
+
         private void CheckAnswer(Figure.Colors choosenColor)
-        {           
-            foreach (var item in SortFiguresByColor())
+        {
+            foreach (var item in dictColors)
             {
-                if(item.Key.Equals(choosenColor))
+                if (item.Key.Equals(choosenColor))
                 {
                     if (item.Value >= maxColorCount)
                     {
-                        foreach (var figure in figs)
+                        foreach (var figure in figs.ToList())
                         {
-                            Debug.Log($"Figure: {figure}");
+                            //Debug.LogWarning($"Figure: {figure}");
+                            Debug.LogWarning($"1. Max: {maxColorCount}, item: {item.Value}");
                             if (figure.color.Equals(Figure.RelateToUnityColor(choosenColor)))
                             {
                                 Destroy(figure.gameObject);
+                                figs.Remove(figure);
+                                Debug.Log("Destroyed!");
                             }
                         }
                         buttonsClicked++;
+                        //maxColorCount = dictColors.Skip(i++).First().Value;
+                        Debug.LogWarning($"2. Max: {maxColorCount}, item: {item.Value}, i: {i}");
                     }
                     else
                     {
@@ -113,11 +136,16 @@ namespace ChooseColor.Game.Scripts
                     }
                 }
             }
-            
+
+            if (i <= (Enum.GetValues(typeof(Figure.Colors)).Length - 1))
+            {
+                maxColorCount = dictColors.Skip(i++).First().Value;
+            }
             Debug.Log($"Mistakes: {mistakesCount}");
+            Debug.LogWarning($"3. Max: {maxColorCount}, i:{i}");
         }
 
-        internal Dictionary<Figure.Colors,int> SortFiguresByColor()
+        internal Dictionary<Figure.Colors, int> SortFiguresByColor()
         {
             Dictionary<Figure.Colors, int> dictr = new Dictionary<Figure.Colors, int>();
             if (generator.figures.Count > 0)

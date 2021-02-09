@@ -1,18 +1,22 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private float health = 4.0f;
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        
+        if(collision.relativeVelocity.magnitude > health)
+        {
+            Die();
+        }
+        Debug.Log(collision.relativeVelocity.magnitude);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Die()
     {
-        
+        Destroy(gameObject);
     }
 }

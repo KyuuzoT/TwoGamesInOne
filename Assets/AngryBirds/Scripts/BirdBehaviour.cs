@@ -6,35 +6,35 @@ namespace AngryBirds.Game.Scripts.Actor
 {
     public class BirdBehaviour : MonoBehaviour
     {
-        [SerializeField] private Rigidbody2D birdRB;
-        [SerializeField] private float releaseTime { get; set; } = 0.01f;
-        private bool isDragging { get; set; } = false;
+        private bool isDragging = false;
+        [SerializeField] private Rigidbody2D rBody;
+        [SerializeField] private float secondsToRelease = 0.15f;
 
         private void Update()
         {
-            if (isDragging)
+            if(isDragging)
             {
-                birdRB.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                rBody.position = Camera.main.ScreenToWorldPoint(Input.mousePosition); 
             }
         }
 
         private void OnMouseDown()
         {
-            birdRB.isKinematic = true;
             isDragging = true;
+            rBody.isKinematic = true;
         }
 
         private void OnMouseUp()
         {
-            birdRB.isKinematic = false;
             isDragging = false;
+            rBody.isKinematic = false;
 
-            StartCoroutine(ReleaseBird());
+            StartCoroutine(Release());
         }
 
-        private IEnumerator ReleaseBird()
+        private IEnumerator Release()
         {
-            yield return new WaitForSeconds(releaseTime);
+            yield return new WaitForSeconds(secondsToRelease);
             GetComponent<SpringJoint2D>().enabled = false;
         }
     }

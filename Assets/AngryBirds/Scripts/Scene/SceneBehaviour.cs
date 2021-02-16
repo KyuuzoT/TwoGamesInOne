@@ -10,20 +10,27 @@ namespace AngryBirds.Game.Scripts.Scene
     {
         [SerializeField] Transform[] targetsArray;
         [SerializeField] Transform spawnPoint;
+        [SerializeField] private int triesCount = 3;
+        private int tries;
 
-        internal static int enemiesCount;
         private Generator generator;
-
-        private bool controlsEnabled = true;
-        
         [SerializeField] private float timeToGeneration = 5.0f;
         private float generationTimer = 0.0f;
+
+        private bool controlsEnabled = true;
+
+        internal static int enemiesCount;
+
+        internal static bool isProjectileOnScene = false;
+        [SerializeField] private Transform projectileSpawnPoint;
+        [SerializeField] private Transform projectile;
 
         private void Awake()
         {
             generationTimer = timeToGeneration;
             generator = GetComponent<Generator>();
             generator.Init(targetsArray, spawnPoint);
+            tries = triesCount;
         }
 
         // Start is called before the first frame update
@@ -46,18 +53,37 @@ namespace AngryBirds.Game.Scripts.Scene
             
             if(enemiesCount <= 0)
             {
-                enemiesCount = 0;
-                Debug.LogWarning(enemiesCount);
-                controlsEnabled = false;
-                if (generationTimer > 0)
+                LevelGeneration();
+            }
+
+            if(!isProjectileOnScene)
+            {
+                if(triesCount > 0)
                 {
-                    generationTimer -= Time.deltaTime;
+                    GenerateNewProjectile();
+                    triesCount--;
                 }
-                else
-                {
-                    GenerateNewLevel();
-                    generationTimer = timeToGeneration;
-                }
+            }
+        }
+
+        private void GenerateNewProjectile()
+        {
+            Instantiate(projectile, projectileSpawnPoint.transform.position, Quaternion.identity);
+        }
+
+        private void LevelGeneration()
+        {
+            enemiesCount = 0;
+            Debug.LogWarning(enemiesCount);
+            controlsEnabled = false;
+            if (generationTimer > 0)
+            {
+                generationTimer -= Time.deltaTime;
+            }
+            else
+            {
+                GenerateNewLevel();
+                generationTimer = timeToGeneration;
             }
         }
 
@@ -66,6 +92,7 @@ namespace AngryBirds.Game.Scripts.Scene
             generator.CleanLevel();
             generator.Generate();
             controlsEnabled = true;
+            triesCount = tries;
         }
     }
 }

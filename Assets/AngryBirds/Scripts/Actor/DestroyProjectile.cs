@@ -17,8 +17,10 @@ namespace AngryBirds.Game.Scripts.Actor
 
         private void OnDestroy()
         {
+            Scene.SceneBehaviour.isProjectileOnScene = false;
             var effect = Instantiate(deathEffect, transform.position, Quaternion.identity);
             effect.GetComponent<ParticleSystem>().GetComponent<Renderer>().sortingOrder = gameObject.GetComponent<Renderer>().sortingOrder;
+            Destroy(effect.gameObject, 1.0f);
         }
     }
 }

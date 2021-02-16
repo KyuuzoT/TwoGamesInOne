@@ -12,6 +12,11 @@ namespace AngryBirds.Game.Scripts.Actor
         [SerializeField] private float secondsToRelease = 0.15f;
         [SerializeField] private float maxDragDistance = 2.0f;
 
+        private void Awake()
+        {
+            Scene.SceneBehaviour.isProjectileOnScene = true;
+        }
+
         private void Update()
         {
             if (isDragging)

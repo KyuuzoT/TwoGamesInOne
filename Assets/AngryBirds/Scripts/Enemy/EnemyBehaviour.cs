@@ -10,11 +10,9 @@ namespace AngryBirds.Game.Scripts.Enemy
         [SerializeField] private float health = 4.0f;
         [SerializeField] private Transform deathEffect;
 
-        private static int enemiesAlive = 0;
-
         private void Start()
         {
-            enemiesAlive++;
+            Scene.SceneBehaviour.enemiesCount++;
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -24,7 +22,6 @@ namespace AngryBirds.Game.Scripts.Enemy
             {
                 Die();
             }
-            Debug.Log(collision.relativeVelocity.magnitude);
         }
 
         private void Die()
@@ -32,11 +29,8 @@ namespace AngryBirds.Game.Scripts.Enemy
             var effect = Instantiate(deathEffect, transform.position, Quaternion.identity);
             effect.GetComponent<ParticleSystem>().GetComponent<Renderer>().sortingOrder = gameObject.GetComponent<Renderer>().sortingOrder;
 
-            enemiesAlive--;
-            if (enemiesAlive <= 0)
-            {
-                Debug.Log("Level cleared!");
-            }
+            Scene.SceneBehaviour.enemiesCount--;
+
             Destroy(gameObject);
         }
     }

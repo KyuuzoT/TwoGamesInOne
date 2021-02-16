@@ -10,6 +10,7 @@ namespace AngryBirds.Game.Scripts.Scene
     {
         Transform[] targets;
         Transform spawnPoint;
+        Transform targetInstance;
 
         internal void Init(Transform[] targerts, Transform spawnPoint)
         {
@@ -22,8 +23,13 @@ namespace AngryBirds.Game.Scripts.Scene
             if (targets.Length > 0 && !spawnPoint.Equals(null))
             {
                 int index = Random.Range(0, targets.Length);
-                var targetInstance = Instantiate(targets[index], spawnPoint.position, Quaternion.identity);
+                targetInstance = Instantiate(targets[index], spawnPoint.position, Quaternion.identity);
             }
+        }
+
+        internal void CleanLevel()
+        {
+            Destroy(targetInstance.gameObject);
         }
     }
 }

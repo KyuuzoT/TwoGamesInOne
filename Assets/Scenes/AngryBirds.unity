@@ -650,6 +650,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb2b23485d57b2e4687d84f843f8c763, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathEffect: {fileID: 8511701222291811505, guid: 4901d781415a43d49b5780fd4de7a37d,
+    type: 3}
   timeToDestroy: 3
 --- !u!1 &1012000797
 GameObject:
@@ -752,6 +754,7 @@ MonoBehaviour:
   - {fileID: 5842860992469718195, guid: b1fcb6e3216f26e40b8ac7b440e73326, type: 3}
   spawnPoint: {fileID: 1720396772486303390, guid: 2eebeea0ac26b004bb22b9c081844759,
     type: 3}
+  timeToGeneration: 5
 --- !u!114 &1012000802
 MonoBehaviour:
   m_ObjectHideFlags: 0

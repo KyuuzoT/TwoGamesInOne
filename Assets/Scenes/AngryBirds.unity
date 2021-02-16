@@ -326,7 +326,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 158428360}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.37, y: -1.04, z: 0}
+  m_LocalPosition: {x: -6.17, y: -1.04, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -493,6 +493,7 @@ GameObject:
   - component: {fileID: 904401428}
   - component: {fileID: 904401429}
   - component: {fileID: 904401430}
+  - component: {fileID: 904401431}
   m_Layer: 0
   m_Name: Bird
   m_TagString: Untagged
@@ -579,7 +580,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 904401424}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.37, y: -1.04, z: 0}
+  m_LocalPosition: {x: -6.17, y: -1.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -636,7 +637,20 @@ MonoBehaviour:
   rBody: {fileID: 904401425}
   rBodyHook: {fileID: 158428361}
   secondsToRelease: 0.15
-  maxDragDistance: 2
+  maxDragDistance: 2.5
+--- !u!114 &904401431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 904401424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb2b23485d57b2e4687d84f843f8c763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToDestroy: 3
 --- !u!1 &1012000797
 GameObject:
   m_ObjectHideFlags: 0
@@ -649,6 +663,7 @@ GameObject:
   - component: {fileID: 1012000799}
   - component: {fileID: 1012000798}
   - component: {fileID: 1012000801}
+  - component: {fileID: 1012000802}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -733,8 +748,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f98cce1b0e2c2341b8baaa837862ee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetsArray: []
-  spawnPoint: {fileID: 0}
+  targetsArray:
+  - {fileID: 5842860992469718195, guid: b1fcb6e3216f26e40b8ac7b440e73326, type: 3}
+  spawnPoint: {fileID: 1720396772486303390, guid: 2eebeea0ac26b004bb22b9c081844759,
+    type: 3}
+--- !u!114 &1012000802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012000797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92f1a6bb11fb0384cbae571528d8f3bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1012402602
 GameObject:
   m_ObjectHideFlags: 0
@@ -840,7 +869,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1915660695}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.16, y: -1.7, z: 0}
+  m_LocalPosition: {x: -5.96, y: -1.7, z: 0}
   m_LocalScale: {x: 0.7, y: 1.1, z: 0.7}
   m_Children:
   - {fileID: 1012402603}
@@ -946,6 +975,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnPoint
       objectReference: {fileID: 0}
+    - target: {fileID: 1720396772486303389, guid: 2eebeea0ac26b004bb22b9c081844759,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1720396772486303390, guid: 2eebeea0ac26b004bb22b9c081844759,
         type: 3}
       propertyPath: m_RootOrder
@@ -1014,6 +1048,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Target
+      objectReference: {fileID: 0}
+    - target: {fileID: 159349640343452519, guid: b1fcb6e3216f26e40b8ac7b440e73326,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5842860992469718195, guid: b1fcb6e3216f26e40b8ac7b440e73326,
         type: 3}

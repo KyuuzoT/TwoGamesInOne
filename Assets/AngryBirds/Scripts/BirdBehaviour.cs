@@ -22,8 +22,10 @@ namespace AngryBirds.Game.Scripts.Actor
                 {
                     rBody.position = rBodyHook.position + (mousePosition - rBodyHook.position).normalized * maxDragDistance;
                 }
-
-                rBody.position = mousePosition;
+                else
+                {
+                    rBody.position = mousePosition;
+                }
             }
         }
 

@@ -17,7 +17,6 @@ namespace AngryBirds.Game.Scripts.Enemy
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            Debug.Log($"Force: {collision.relativeVelocity.magnitude}");
             if (collision.relativeVelocity.magnitude > health)
             {
                 Die();

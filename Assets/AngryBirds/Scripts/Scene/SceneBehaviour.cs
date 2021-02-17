@@ -34,6 +34,7 @@ namespace AngryBirds.Game.Scripts.Scene
             generationTimer = timeToGeneration;
             generator = GetComponent<Generator>();
             generator.Init(targetsArray, spawnPoint);
+            controlsEnabled = true;
             tries = triesCount;
         }
 
@@ -49,24 +50,22 @@ namespace AngryBirds.Game.Scripts.Scene
         // Update is called once per frame
         void Update()
         {
-            if(controlsEnabled)
+            if(Input.GetKeyDown(KeyCode.R))
             {
-                if (Input.GetKeyDown(KeyCode.R))
+                Debug.Log($"controlsEnabled: {controlsEnabled}");
+                if (controlsEnabled)
                 {
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                 }
             }
-            
-            if(enemiesCount <= 0)
+            else
             {
-                LevelGeneration();
+                if (enemiesCount <= 0)
+                {
+                    LevelGeneration();
+                }
             }
-
             
-        }
-
-        private void LateUpdate()
-        {
             if (!isProjectileOnScene)
             {
                 if (triesCount > 0)

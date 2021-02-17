@@ -23,7 +23,6 @@ namespace AngryBirds.Game.Scripts.Scene
             if (targets.Length > 0 && !spawnPoint.Equals(null))
             {
                 int index = Random.Range(0, targets.Length);
-                Debug.LogWarning($"Index: {index}");
                 targetInstance = Instantiate(targets[index], spawnPoint.position, Quaternion.identity);
             }
         }

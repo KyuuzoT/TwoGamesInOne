@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace AngryBirds.Game.Scripts.Scene
 {
     public class SceneBehaviour : MonoBehaviour
     {
-        [SerializeField] Transform[] targetsArray;
-        [SerializeField] Transform spawnPoint;
+        [SerializeField] private TextMeshProUGUI triesNumber; 
+        [SerializeField] private TextMeshProUGUI enemiesNumber; 
+        [SerializeField] private Transform[] targetsArray;
+        [SerializeField] private Transform spawnPoint;
         [SerializeField] private int triesCount = 3;
         private int tries;
 
@@ -37,6 +41,8 @@ namespace AngryBirds.Game.Scripts.Scene
         void Start()
         {
             generator.Generate();
+            GenerateNewProjectile();
+            isProjectileOnScene = true;
             enemiesCount = 0;
         }
 
@@ -56,10 +62,16 @@ namespace AngryBirds.Game.Scripts.Scene
                 LevelGeneration();
             }
 
-            if(!isProjectileOnScene)
+            
+        }
+
+        private void LateUpdate()
+        {
+            if (!isProjectileOnScene)
             {
-                if(triesCount > 0)
+                if (triesCount > 0)
                 {
+                    Debug.Log($"Tries: {triesCount}");
                     GenerateNewProjectile();
                     triesCount--;
                 }
@@ -92,6 +104,12 @@ namespace AngryBirds.Game.Scripts.Scene
             generator.Generate();
             controlsEnabled = true;
             triesCount = tries;
+        }
+
+        private void OnGUI()
+        {
+            enemiesNumber.text = enemiesCount.ToString();
+            triesNumber.text = triesCount.ToString();
         }
     }
 }

@@ -52,7 +52,6 @@ namespace AngryBirds.Game.Scripts.Scene
         {
             if(Input.GetKeyDown(KeyCode.R))
             {
-                Debug.Log($"controlsEnabled: {controlsEnabled}");
                 if (controlsEnabled)
                 {
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -70,7 +69,6 @@ namespace AngryBirds.Game.Scripts.Scene
             {
                 if (triesCount > 0)
                 {
-                    Debug.Log($"Tries: {triesCount}");
                     GenerateNewProjectile();
                     triesCount--;
                 }

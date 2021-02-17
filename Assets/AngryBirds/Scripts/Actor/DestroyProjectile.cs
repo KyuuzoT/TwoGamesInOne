@@ -24,7 +24,6 @@ namespace AngryBirds.Game.Scripts.Actor
         {
             if(isHit)
             {
-                Debug.Log("Hit!");
                 if (timer > 0)
                 {
                     timer -= Time.deltaTime;

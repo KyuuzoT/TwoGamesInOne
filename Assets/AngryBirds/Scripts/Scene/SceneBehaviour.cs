@@ -74,7 +74,6 @@ namespace AngryBirds.Game.Scripts.Scene
         private void LevelGeneration()
         {
             enemiesCount = 0;
-            Debug.LogWarning(enemiesCount);
             controlsEnabled = false;
             if (generationTimer > 0)
             {
